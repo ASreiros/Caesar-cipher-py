@@ -10,14 +10,23 @@ def start_encryptor():
 
 
     text = input("Type your message:\n").lower()
-    shift = int(input("Type the shift number:\n"))
+    shift_flag = False
+    while shift_flag is False:
+        shift = input("Type the shift number:\n")
+        if shift.isdigit():
+            shift = int(shift)
+            shift_flag = True
+        else:
+            print("shift number has to be positive integer")
+
 
     alphabet_shifted = []
 
     for n in range(0, len(alphabet)):
         pos = n + shift
-        if pos >= len(alphabet):
+        while pos >= len(alphabet):
             pos -= len(alphabet)
+
         alphabet_shifted.append(alphabet[pos])
     reply = ""
     if direction == "encode":
@@ -25,7 +34,7 @@ def start_encryptor():
     else:
         reply = ring(alphabet_shifted, alphabet, text)
 
-    print(f"Here is your {direction}d result: {reply}!")
+    print(f"Here is your {direction}d result: {reply}")
     go_again = input('Type "yes" if you want to go again. Otherwise type "no".\n')
 
     if go_again == "yes":
